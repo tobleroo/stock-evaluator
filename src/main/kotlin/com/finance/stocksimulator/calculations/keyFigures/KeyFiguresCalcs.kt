@@ -17,4 +17,8 @@ class KeyFiguresCalcs(private val fetchData: FetchAlphaVantageDataAPI) {
         // return p/e
     }
 
+    fun peg(){
+        print("hello")
+    }
+
 }
