@@ -1,5 +1,7 @@
 package com.finance.stocksimulator
 
+import com.finance.stocksimulator.alphaVantageAPI.FetchAlphaVantageDataAPI
+import com.finance.stocksimulator.calculations.keyFigures.KeyFiguresCalcs
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -8,5 +10,4 @@ class StockSimulatorApplication
 
 fun main(args: Array<String>) {
     runApplication<StockSimulatorApplication>(*args)
-
 }

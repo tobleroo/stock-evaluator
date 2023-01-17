@@ -1,28 +1,38 @@
 package com.finance.stocksimulator.calculations.keyFigures
 
+import com.finance.stocksimulator.Services.KeyService
 import com.finance.stocksimulator.alphaVantageAPI.FetchAlphaVantageDataAPI
+import com.finance.stocksimulator.alphaVantageAPI.alphaData
 import com.google.gson.JsonObject
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import kotlin.reflect.typeOf
 
 @Service
-class KeyFiguresCalcs(private val fetchData: FetchAlphaVantageDataAPI) {
+class KeyFiguresCalcs() {
 
-    fun priceEarnings(financialsMap: MutableMap<String, JsonObject>){
+    fun priceEarnings(data: MutableMap<String, JsonObject>): BigDecimal? {
 
-        //get the specifics needed
-        val stockClosePrice = fetchData.fetchSingleData("IBM", "TIME_SERIES_DAILY_ADJUSTED").get("Time Series (Daily)")
+        val stockClosePrice = data.get("TIME_SERIES_DAILY_ADJUSTED")
+//            ?.getAsJsonObject("Time Series (Daily)")
+//            ?.getAsJsonObject("2023-01-13")?.get("close")
         print(stockClosePrice)
-        //do calculation
 
-        // return p/e
-    }
+        val companyProfit = data.get("INCOME_STATEMENT")
+//            ?.getAsJsonObject("annualReports")
+//            ?.get("grossProfit")
+        print(companyProfit)
 
-    fun peg(){
-        print("hello")
-    }
+        return null
 
-    fun earnings(){
-        print("earnings")
+//        val stockClosePrice = fetchData.fetchSingleData("IBM", "TIME_SERIES_DAILY_ADJUSTED")
+//            .getAsJsonObject("Time Series (Daily)")
+//            .getAsJsonObject("2023-01-13")
+//            .get("4. close").asBigDecimal
+//
+//        val profits = fetchData.fetchSingleData("IBM", "INCOME_STATEMENT").getAsJsonArray("annualReports")
+//
+//        print(profits.get(0).asJsonObject.get("grossProfit").asBigDecimal)
     }
 
 }

@@ -7,5 +7,5 @@ enum class alphaData(val key: String) {
 }
 
 enum class AlphaCategories{
-    OVERVIEW, INCOME_STATEMENT, BALANCE_SHEET, CASH_FLOW
+    OVERVIEW, INCOME_STATEMENT, BALANCE_SHEET, CASH_FLOW, TIME_SERIES_DAILY_ADJUSTED
 }
