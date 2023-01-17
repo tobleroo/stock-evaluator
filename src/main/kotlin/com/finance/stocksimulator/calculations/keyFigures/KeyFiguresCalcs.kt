@@ -21,4 +21,8 @@ class KeyFiguresCalcs(private val fetchData: FetchAlphaVantageDataAPI) {
         print("hello")
     }
 
+    fun earnings(){
+        print("earnings")
+    }
+
 }
