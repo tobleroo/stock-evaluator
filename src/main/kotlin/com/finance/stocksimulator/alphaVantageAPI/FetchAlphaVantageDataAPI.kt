@@ -1,5 +1,8 @@
 package com.finance.stocksimulator.alphaVantageAPI
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.finance.stocksimulator.alphaVantageAPI.Models.StockOverviewData
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import org.springframework.stereotype.Service
@@ -42,6 +45,21 @@ class FetchAlphaVantageDataAPI {
 //        companyData["balance"] =  fetchSingleData(company, AlphaCategories.BALANCE_SHEET.toString())
 //        companyData["cashFlow"] = fetchSingleData(company, AlphaCategories.CASH_FLOW.toString())
 //        companyData["dailyData"] = fetchSingleData(company, AlphaCategories.TIME_SERIES_DAILY_ADJUSTED.toString())
+    }
+
+    fun fetchSingleWithJackson(company: String, dataCat: String): StockOverviewData{
+        val url =
+            URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=${company}&apikey=${alphaData.alpha_KEY}")
+
+        val data = url.openStream().bufferedReader().use {
+            it.readText()
+        }
+
+        val mapper = jacksonObjectMapper()
+
+        val overviewData = mapper.readValue<StockOverviewData>(data)
+
+        return overviewData
     }
 
 
