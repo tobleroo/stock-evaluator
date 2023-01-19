@@ -10,11 +10,12 @@ class DemoController(private val keyService: KeyService,
                      private val fetchData: FetchAlphaVantageDataAPI) {
 
     @GetMapping("/pe")
-    fun stockKeyData(): String {
+    fun stockKeyData() {
 
-        val demoData = fetchData.fetchSingleWithJackson("IBM", "OVERVIEW")
+//        val data = fetchData.fetchOverviewData("IBM", "OVERVIEW")
 
-        return demoData.toString()
+        val data = fetchData.fetchBalanceData("IBM", "BALANCE_SHEET")
+//        print(data.quarterlyReports[0])
 
     }
 }

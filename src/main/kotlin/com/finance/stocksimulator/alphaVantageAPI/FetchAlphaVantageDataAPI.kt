@@ -2,7 +2,10 @@ package com.finance.stocksimulator.alphaVantageAPI
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.finance.stocksimulator.alphaVantageAPI.Models.StockOverviewData
+import com.finance.stocksimulator.alphaVantageAPI.models.BalanceData
+import com.finance.stocksimulator.alphaVantageAPI.models.IncomeData
+import com.finance.stocksimulator.alphaVantageAPI.models.StockOverviewData
+
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import org.springframework.stereotype.Service
@@ -11,55 +14,50 @@ import java.net.URL
 @Service
 class FetchAlphaVantageDataAPI {
 
-//    val companyData: MutableMap<String, JsonObject>
-//        get() {
-//            return companyData
-//        }
+    val mapper = jacksonObjectMapper()
+    fun fetchOverviewData(company: String, dataCat: String): StockOverviewData {
 
-    fun fetchSingleData(company: String, dataCat: String): JsonObject {
+        val jsonData = alphaApiFetch(company, dataCat)
 
-        val url =
-            URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=${company}&apikey=${alphaData.alpha_KEY}")
+        val refinedString = removeJsonKeysFromOverviewData(jsonData)
 
-        val data = url.openStream().bufferedReader().use {
-            it.readText()
-        }
+        return mapper.readValue(refinedString)
+    }
+
+    fun fetchIncomeData(company: String, dataCat: String): IncomeData {
+        return mapper.readValue(alphaApiFetch(company, dataCat))
+    }
+
+    fun fetchBalanceData(company: String, dataCat: String): BalanceData {
+        val jsonData = alphaApiFetch(company, dataCat)
+
+        return mapper.readValue(jsonData)
+    }
+
+
+
+    private fun removeJsonKeysFromOverviewData(jsonData :String): String{
 
         val gson = Gson()
 
-        return gson.fromJson(data, JsonObject::class.java)
+        val gsonObj = gson.fromJson(jsonData, JsonObject::class.java)
+
+        gsonObj.remove("52WeekHigh")
+        gsonObj.remove("52WeekLow")
+        gsonObj.remove("50DayMovingAverage")
+        gsonObj.remove("200DayMovingAverage")
+
+        return gsonObj.toString()
     }
 
-    fun fetchAllDataOneCompany(company: String): MutableMap<String, JsonObject> {
-
-//        if(companyData.isNotEmpty()) companyData.clear()
-        return mutableMapOf(
-            "overview" to fetchSingleData(company, AlphaCategories.OVERVIEW.toString()),
-            "income" to fetchSingleData(company, AlphaCategories.INCOME_STATEMENT.toString()),
-            "balance" to fetchSingleData(company, AlphaCategories.BALANCE_SHEET.toString()),
-            "cashFlow" to fetchSingleData(company, AlphaCategories.CASH_FLOW.toString()),
-            "dailyData" to fetchSingleData(company, AlphaCategories.TIME_SERIES_DAILY_ADJUSTED.toString())
-        )
-//        companyData["overview"] = fetchSingleData(company, AlphaCategories.OVERVIEW.toString())
-//        companyData["income"] = fetchSingleData(company, AlphaCategories.INCOME_STATEMENT.toString())
-//        companyData["balance"] =  fetchSingleData(company, AlphaCategories.BALANCE_SHEET.toString())
-//        companyData["cashFlow"] = fetchSingleData(company, AlphaCategories.CASH_FLOW.toString())
-//        companyData["dailyData"] = fetchSingleData(company, AlphaCategories.TIME_SERIES_DAILY_ADJUSTED.toString())
-    }
-
-    fun fetchSingleWithJackson(company: String, dataCat: String): StockOverviewData{
+    fun alphaApiFetch(company: String, dataCat: String): String{
         val url =
             URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=${company}&apikey=${alphaData.alpha_KEY}")
 
         val data = url.openStream().bufferedReader().use {
             it.readText()
         }
-
-        val mapper = jacksonObjectMapper()
-
-        val overviewData = mapper.readValue<StockOverviewData>(data)
-
-        return overviewData
+        return data
     }
 
 
