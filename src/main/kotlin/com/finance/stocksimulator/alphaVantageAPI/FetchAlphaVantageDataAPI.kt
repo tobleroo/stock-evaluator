@@ -2,9 +2,7 @@ package com.finance.stocksimulator.alphaVantageAPI
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.finance.stocksimulator.alphaVantageAPI.models.BalanceData
-import com.finance.stocksimulator.alphaVantageAPI.models.IncomeData
-import com.finance.stocksimulator.alphaVantageAPI.models.StockOverviewData
+import com.finance.stocksimulator.alphaVantageAPI.models.*
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -17,7 +15,7 @@ class FetchAlphaVantageDataAPI {
     val mapper = jacksonObjectMapper()
     fun fetchOverviewData(company: String, dataCat: String): StockOverviewData {
 
-        val jsonData = alphaApiFetch(company, dataCat)
+        val jsonData = fetchAlphaStockJson(company, dataCat)
 
         val refinedString = removeJsonKeysFromOverviewData(jsonData)
 
@@ -25,13 +23,22 @@ class FetchAlphaVantageDataAPI {
     }
 
     fun fetchIncomeData(company: String, dataCat: String): IncomeData {
-        return mapper.readValue(alphaApiFetch(company, dataCat))
+        return mapper.readValue(fetchAlphaStockJson(company, dataCat))
     }
 
     fun fetchBalanceData(company: String, dataCat: String): BalanceData {
-        val jsonData = alphaApiFetch(company, dataCat)
+        val jsonData = fetchAlphaStockJson(company, dataCat)
 
         return mapper.readValue(jsonData)
+    }
+
+    fun fetchCashFlowData(company: String, dataCat: String): CashFlowData {
+        return mapper.readValue(fetchAlphaStockJson(company, dataCat))
+    }
+
+//    alpha vantage sends this api resonse as a CSV file
+    fun fetchListings(){
+
     }
 
 
@@ -39,7 +46,6 @@ class FetchAlphaVantageDataAPI {
     private fun removeJsonKeysFromOverviewData(jsonData :String): String{
 
         val gson = Gson()
-
         val gsonObj = gson.fromJson(jsonData, JsonObject::class.java)
 
         gsonObj.remove("52WeekHigh")
@@ -50,7 +56,7 @@ class FetchAlphaVantageDataAPI {
         return gsonObj.toString()
     }
 
-    fun alphaApiFetch(company: String, dataCat: String): String{
+    fun fetchAlphaStockJson(company: String, dataCat: String): String{
         val url =
             URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=${company}&apikey=${alphaData.alpha_KEY}")
 
@@ -58,6 +64,20 @@ class FetchAlphaVantageDataAPI {
             it.readText()
         }
         return data
+    }
+
+    fun fetchAlphaListing(): List<ListingStocks>{
+        val url =
+            URL("https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=${alphaData.alpha_KEY}")
+
+//        val listings: List<ListingStocks> = listOf()
+        val data = url.openStream().bufferedReader()
+        return data.lineSequence()
+            .map {
+                val (symbol, name, exchange, assetType, ipoDate) =
+                    it.split(',', ignoreCase = false, limit = 5)
+                ListingStocks(symbol, name, exchange, assetType, ipoDate, null , "active")
+            }.toList()
     }
 
 
