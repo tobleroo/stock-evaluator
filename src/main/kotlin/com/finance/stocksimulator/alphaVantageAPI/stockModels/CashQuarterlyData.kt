@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.alphaVantageAPI.models
+package com.finance.stocksimulator.alphaVantageAPI.stockModels
 
 data class CashQuarterlyData(
     val fiscalDateEnding: String,
@@ -16,7 +16,7 @@ data class CashQuarterlyData(
     val cashflowFromInvestment: String,
     val cashflowFromFinancing: String,
     val proceedsFromRepaymentsOfShortTermDebt: String,
-    val valpaymentsForRepurchaseOfCommonStock: String,
+    val paymentsForRepurchaseOfCommonStock: String,
     val paymentsForRepurchaseOfEquity: String,
     val paymentsForRepurchaseOfPreferredStock: String,
     val dividendPayout: String,

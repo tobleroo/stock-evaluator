@@ -1,7 +1,7 @@
-package com.finance.stocksimulator.alphaVantageAPI.models
+package com.finance.stocksimulator.alphaVantageAPI.stockModels
 
 data class CashFlowData(
-    val Symbol: String,
+    val symbol: String,
     val annualReports: List<CashAnnualData>,
     val quarterlyReports: List<CashQuarterlyData>
 )

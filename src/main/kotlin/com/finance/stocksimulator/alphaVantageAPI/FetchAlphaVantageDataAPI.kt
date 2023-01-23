@@ -2,7 +2,7 @@ package com.finance.stocksimulator.alphaVantageAPI
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.finance.stocksimulator.alphaVantageAPI.models.*
+import com.finance.stocksimulator.alphaVantageAPI.stockModels.*
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -13,6 +13,7 @@ import java.net.URL
 class FetchAlphaVantageDataAPI {
 
     val mapper = jacksonObjectMapper()
+
     fun fetchOverviewData(company: String, dataCat: String): StockOverviewData {
 
         val jsonData = fetchAlphaStockJson(company, dataCat)
@@ -36,13 +37,8 @@ class FetchAlphaVantageDataAPI {
         return mapper.readValue(fetchAlphaStockJson(company, dataCat))
     }
 
-//    alpha vantage sends this api resonse as a CSV file
-    fun fetchListings(){
 
-    }
-
-
-
+//    tools for fetching data from the api
     private fun removeJsonKeysFromOverviewData(jsonData :String): String{
 
         val gson = Gson()
@@ -79,7 +75,5 @@ class FetchAlphaVantageDataAPI {
                 ListingStocks(symbol, name, exchange, assetType, ipoDate, null , "active")
             }.toList()
     }
-
-
 
 }

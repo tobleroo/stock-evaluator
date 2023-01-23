@@ -1,23 +1,22 @@
 package com.finance.stocksimulator.Controllers
 
-import com.finance.stocksimulator.Services.KeyService
-import com.finance.stocksimulator.alphaVantageAPI.FetchAlphaVantageDataAPI
-import com.finance.stocksimulator.alphaVantageAPI.models.ListingStocks
+import com.finance.stocksimulator.alphaVantageAPI.service.AlphaStockApiService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class DemoController(private val keyService: KeyService,
-                     private val fetchData: FetchAlphaVantageDataAPI) {
+class DemoController( private val alphaApiService: AlphaStockApiService) {
 
-    @GetMapping("/pe")
-    fun stockKeyData(): List<ListingStocks> {
+    @GetMapping("/specific-data/{symbol}/{data}")
+    fun stockData(@PathVariable symbol: String, @PathVariable data: String): String {
+        return alphaApiService.fetchSingleAlphaData(symbol, data).toString()
+    }
 
-//        val data = fetchData.fetchOverviewData("IBM", "OVERVIEW")
+    @GetMapping("/all-data/{symbol}")
+    fun stockAllData(@PathVariable symbol: String): String{
+        val stockAllData = alphaApiService.fetchAllAlphaData(symbol)
 
-//        val data = fetchData.fetchBalanceData("IBM", "BALANCE_SHEET")
-//        print(data.quarterlyReports[0])
-
-        return fetchData.fetchAlphaListing()
+        return stockAllData.incomeData.toString()
     }
 }

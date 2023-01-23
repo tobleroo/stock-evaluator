@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.alphaVantageAPI.models
+package com.finance.stocksimulator.alphaVantageAPI.stockModels
 
 data class IncomeQuartData(
     val fiscalDateEnding: String,
