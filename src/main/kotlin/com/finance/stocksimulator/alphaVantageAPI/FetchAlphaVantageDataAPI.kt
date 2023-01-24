@@ -37,8 +37,36 @@ class FetchAlphaVantageDataAPI {
         return mapper.readValue(fetchAlphaStockJson(company, dataCat))
     }
 
+    fun fetchGlobalQuote(company: String, dataCat: String): GlobalQuote {
+        val rawJson = fetchAlphaStockJson(company, dataCat)
+
+        val data = removeJsonKeyPartsFromGlobalData(rawJson)
+
+        return GlobalQuote(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9])
+
+    }
+
 
 //    tools for fetching data from the api
+    private fun removeJsonKeyPartsFromGlobalData(jsonData: String): MutableList<String> {
+
+        val finalData = mutableListOf<String>()
+        val withoutBlanks = jsonData.replace(" ","")
+        val stringArr = withoutBlanks.split(',').toMutableList()
+
+        val symbol = stringArr[0]
+        val partSymbol = symbol.split(":")
+        finalData.add(partSymbol[2])
+        stringArr.removeAt(0)
+
+
+        for(data in stringArr){
+            val demo = data.split('"')
+            finalData.add(demo[3])
+        }
+        return finalData
+    }
+
     private fun removeJsonKeysFromOverviewData(jsonData :String): String{
 
         val gson = Gson()

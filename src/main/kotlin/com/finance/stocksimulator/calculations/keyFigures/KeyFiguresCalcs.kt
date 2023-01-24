@@ -9,7 +9,19 @@ class KeyFiguresCalcs() {
 
     fun priceEarnings(data: MutableMap<String, JsonObject>) {
 
-
     }
+
+    /*
+     p/e
+    peg
+    roc
+    tillväxt
+    vinst
+    skulder
+    soliditet
+    marginal(er?) ex rörelse, vinst, brutto - marginal
+    utdelning
+
+     */
 
 }

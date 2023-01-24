@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.Controllers
+package com.finance.stocksimulator.controllers
 
 import com.finance.stocksimulator.alphaVantageAPI.service.AlphaStockApiService
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,6 +17,7 @@ class DemoController( private val alphaApiService: AlphaStockApiService) {
     fun stockAllData(@PathVariable symbol: String): String{
         val stockAllData = alphaApiService.fetchAllAlphaData(symbol)
 
-        return stockAllData.incomeData.toString()
+        return stockAllData.globalQuote.toString()
     }
+
 }

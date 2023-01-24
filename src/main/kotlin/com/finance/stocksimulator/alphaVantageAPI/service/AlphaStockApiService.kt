@@ -28,6 +28,9 @@ class AlphaStockApiService (private val fetchAlphaApi: FetchAlphaVantageDataAPI)
         if (company.cashFlowData == null){
             company.cashFlowData = fetchAlphaApi.fetchCashFlowData(companySymbol, "CASH_FLOW")
         }else print("cashflow exists")
+        if(company.globalQuote == null){
+            company.globalQuote = fetchAlphaApi.fetchGlobalQuote(companySymbol, "GLOBAL_QUOTE")
+        }
 
         return company
     }
@@ -43,6 +46,7 @@ class AlphaStockApiService (private val fetchAlphaApi: FetchAlphaVantageDataAPI)
                 "INCOME_STATEMENT" -> company.incomeData = fetchAlphaApi.fetchIncomeData(companySymbol, dataCategory)
                 "BALANCE_SHEET" -> company.balanceData = fetchAlphaApi.fetchBalanceData(companySymbol, dataCategory)
                 "CASH_FLOW" -> company.cashFlowData = fetchAlphaApi.fetchCashFlowData(companySymbol, dataCategory)
+                "GLOBAL_QUOTE" -> company.globalQuote = fetchAlphaApi.fetchGlobalQuote(companySymbol, dataCategory)
             }
         }
 
