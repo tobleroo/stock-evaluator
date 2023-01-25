@@ -7,12 +7,18 @@ import java.math.BigDecimal
 @Service
 class KeyFiguresCalcs() {
 
-    fun priceEarnings(data: MutableMap<String, JsonObject>) {
+    fun priceEarningsRatio(sharePrice: Float, profitByStock: Float): Float = sharePrice/profitByStock
+
+
+
+
+    fun priceEarningsGrowths(sharePrice: BigDecimal, eps: Float, epsGrowthRate: Float){
+        // (share price / eps ) / eps growth rate
+
 
     }
 
     /*
-     p/e
     peg
     roc
     tillväxt

@@ -7,3 +7,12 @@ data class CompanyFullData(
     var cashFlowData: CashFlowData? = null,
     var balanceData: BalanceData? = null,
     var globalQuote: GlobalQuote? = null)
+{
+
+    val earningsPerShare by lazy { cashFlowData?.annualReports?.get(0)?.profitLoss?.toBigDecimal()!! /
+            overview?.SharesOutstanding!!.toBigDecimal()
+    }
+
+    val epsGrowthRate by lazy {  }
+
+}
