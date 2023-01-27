@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class DemoController( private val alphaApiService: AlphaStockApiService,
-    private val keyCalcs: KeyFiguresCalcs) {
+class DemoController( private val alphaApiService: AlphaStockApiService) {
 
     @GetMapping("/specific-data/{symbol}/{data}")
     fun stockData(@PathVariable symbol: String, @PathVariable data: String): String {
@@ -19,10 +18,9 @@ class DemoController( private val alphaApiService: AlphaStockApiService,
     fun stockAllData(@PathVariable symbol: String): String{
         val stockAllData = alphaApiService.fetchAllAlphaData(symbol)
 
-        return keyCalcs.priceEarningsRatio(
-            stockAllData.globalQuote?.previousclose?.toFloat()!!,
-            stockAllData.earningsPerShare.toFloat())
-            .toString()
+
+        KeyFiguresCalcs.priceEarningsGrowths(stockAllData.globalQuote, stockAllData.incomeData, stockAllData.overview)
+        return "hello"
     }
 
 }

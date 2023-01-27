@@ -9,10 +9,10 @@ data class CompanyFullData(
     var globalQuote: GlobalQuote? = null)
 {
 
-    val earningsPerShare by lazy { cashFlowData?.annualReports?.get(0)?.profitLoss?.toBigDecimal()!! /
-            overview?.SharesOutstanding!!.toBigDecimal()
+    val earningsPerShare by lazy { incomeData!!.annualReports[0].netIncome.toBigInteger() /
+        overview!!.SharesOutstanding.toBigInteger()
     }
 
-    val epsGrowthRate by lazy {  }
+
 
 }

@@ -66,7 +66,6 @@ class AlphaStockApiService (private val fetchAlphaApi: FetchAlphaVantageDataAPI)
                }
            }
        }
-
         return company
     }
 
