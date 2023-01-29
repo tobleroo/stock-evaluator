@@ -19,7 +19,8 @@ class DemoController( private val alphaApiService: AlphaStockApiService) {
         val stockAllData = alphaApiService.fetchAllAlphaData(symbol)
 
 
-        KeyFiguresCalcs.priceEarningsGrowths(stockAllData.globalQuote, stockAllData.incomeData, stockAllData.overview)
+        KeyFiguresCalcs.priceEarningsGrowths(stockAllData)
+        KeyFiguresCalcs.returnOnCapital(stockAllData)
         return "hello"
     }
 
