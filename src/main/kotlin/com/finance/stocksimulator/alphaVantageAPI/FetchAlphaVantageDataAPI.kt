@@ -14,31 +14,31 @@ class FetchAlphaVantageDataAPI {
 
     val mapper = jacksonObjectMapper()
 
-    fun fetchOverviewData(company: String, dataCat: String): StockOverviewData {
+    fun fetchOverviewData(company: String, dataCat: String, demoUse: Boolean): StockOverviewData {
 
-        val jsonData = fetchAlphaStockJson(company, dataCat)
+        val jsonData = fetchAlphaStockJson(company, dataCat, demoUse)
 
         val refinedString = removeJsonKeysFromOverviewData(jsonData)
 
         return mapper.readValue(refinedString)
     }
 
-    fun fetchIncomeData(company: String, dataCat: String): IncomeData {
-        return mapper.readValue(fetchAlphaStockJson(company, dataCat))
+    fun fetchIncomeData(company: String, dataCat: String, demoUse: Boolean): IncomeData {
+        return mapper.readValue(fetchAlphaStockJson(company, dataCat, demoUse))
     }
 
-    fun fetchBalanceData(company: String, dataCat: String): BalanceData {
-        val jsonData = fetchAlphaStockJson(company, dataCat)
+    fun fetchBalanceData(company: String, dataCat: String, demoUse: Boolean): BalanceData {
+        val jsonData = fetchAlphaStockJson(company, dataCat, demoUse)
 
         return mapper.readValue(jsonData)
     }
 
-    fun fetchCashFlowData(company: String, dataCat: String): CashFlowData {
-        return mapper.readValue(fetchAlphaStockJson(company, dataCat))
+    fun fetchCashFlowData(company: String, dataCat: String, demoUse: Boolean): CashFlowData {
+        return mapper.readValue(fetchAlphaStockJson(company, dataCat, demoUse))
     }
 
-    fun fetchGlobalQuote(company: String, dataCat: String): GlobalQuote {
-        val rawJson = fetchAlphaStockJson(company, dataCat)
+    fun fetchGlobalQuote(company: String, dataCat: String, demoUse: Boolean): GlobalQuote {
+        val rawJson = fetchAlphaStockJson(company, dataCat, demoUse)
 
         val data = removeJsonKeyPartsFromGlobalData(rawJson)
 
@@ -80,9 +80,14 @@ class FetchAlphaVantageDataAPI {
         return gsonObj.toString()
     }
 
-    fun fetchAlphaStockJson(company: String, dataCat: String): String{
-        val url =
-            URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=${company}&apikey=${alphaData.alpha_KEY}")
+    fun fetchAlphaStockJson(company: String, dataCat: String, useAsDemo:Boolean): String{
+
+        val url = when (useAsDemo){
+            false -> URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=${company}&apikey=${alphaData.alpha_KEY}")
+
+            true -> URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=IBM&apikey=demo")
+        }
+
 
         val data = url.openStream().bufferedReader().use {
             it.readText()
