@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.calculations.keyFigures
+package com.finance.stocksimulator.financials.keyFigures
 
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -50,18 +50,37 @@ class KeyFiguresCalcs() {
             return thirdStep.roundToInt()
         }
 
+        //resultat efte finans poster
+        fun resultAfterFinancePosts(income: BigDecimal, costs: BigDecimal): BigDecimal{
+            return income.minus(costs)
+        }
+
+        //ränte kostnader
+        fun interestCosts(): BigDecimal{
+
+        }
+
+        // resultat före finans kostnader
+
+        //nettoomsättning
+
+        // vinstmarginal
+
+        // justerat eget kapital
+
+        // räntebärande skulder
+
+        // sysselsatt kapital
+
+        // kap.oms.hast.ggr/år
+
+        // avkastning sysselsatt kapital
+
     }
 
 }
 
-
-
-
-
-
-
     /*
-    vinst
     skulder
     soliditet
     marginal(er?) ex rörelse, vinst, brutto - marginal

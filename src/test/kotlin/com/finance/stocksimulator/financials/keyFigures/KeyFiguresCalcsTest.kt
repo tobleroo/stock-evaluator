@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.calculations.keyFigures
+package com.finance.stocksimulator.financials.keyFigures
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -17,7 +17,8 @@ class KeyFiguresCalcsTest{
 
     @Test
     fun `assert peg ratio calcs right`(){
-        val calcValue = KeyFiguresCalcs.priceEarningsGrowths( BigDecimal(10),
+        val calcValue = KeyFiguresCalcs.priceEarningsGrowths(
+            BigDecimal(10),
             BigDecimal(300), BigDecimal(100), BigDecimal(200)
         )
 
@@ -30,7 +31,8 @@ class KeyFiguresCalcsTest{
             KeyFiguresCalcs.returnOnCapital(
                 BigDecimal(11025000000),
                 BigDecimal(217366000000),
-                BigDecimal(217366000000) )
+                BigDecimal(217366000000)
+            )
 
         assertEquals(2.500, calcValue.toDouble())
     }
