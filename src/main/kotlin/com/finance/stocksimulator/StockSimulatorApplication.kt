@@ -1,7 +1,5 @@
 package com.finance.stocksimulator
 
-import com.finance.stocksimulator.alphaVantageAPI.FetchAlphaVantageDataAPI
-import com.finance.stocksimulator.financials.keyFigures.KeyFiguresCalcs
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 

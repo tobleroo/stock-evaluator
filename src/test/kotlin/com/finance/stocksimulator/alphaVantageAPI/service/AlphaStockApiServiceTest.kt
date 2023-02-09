@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Assertions.*
 
 class AlphaStockApiServiceTest {
 
-    private val alphaService = AlphaStockApiService()
+
     @Test
     fun fetchAllAlphaData() {
-        val allDataObj: CompanyFullData = alphaService.fetchAllAlphaData("IBM", true)
+        val allDataObj: CompanyFullData = AlphaStockApiService.fetchAllAlphaData("IBM", true)
 
         allDataObj.incomeData?.annualReports?.isNotEmpty()?.let { assertTrue(it) }
         allDataObj.balanceData?.annualReports?.isNotEmpty()?.let { assertTrue(it) }
@@ -22,28 +22,28 @@ class AlphaStockApiServiceTest {
     @Test
     fun getStockFromList() {
         //first make sure there is a company in the list
-        alphaService.fetchAllAlphaData("IBM", true)
+        AlphaStockApiService.fetchAllAlphaData("IBM", true)
 
-        val objFromList: CompanyFullData = alphaService.getStockFromList("IBM")
+        val objFromList: CompanyFullData = AlphaStockApiService.getStockFromList("IBM")
         assertTrue(!objFromList.symbol.isNullOrBlank())
     }
 
     @Test
     fun getListOfStocks() {
         //first make sure there is at least one company in the list
-        alphaService.fetchAllAlphaData("IBM", true)
+        AlphaStockApiService.fetchAllAlphaData("IBM", true)
 
-        val listOfCompanies = alphaService.getListOfStocks()
+        val listOfCompanies = AlphaStockApiService.getListOfStocks()
         println(listOfCompanies.size)
 //        assertTrue(listOfCompanies.isNotEmpty())
     }
 
     @Test
     fun `call two times but list should still only have one company`(){
-        alphaService.fetchAllAlphaData("IBM", true)
-        alphaService.fetchAllAlphaData("IBM", true)
+        AlphaStockApiService.fetchAllAlphaData("IBM", true)
+        AlphaStockApiService.fetchAllAlphaData("IBM", true)
 
-        val listOfCompanies = alphaService.getListOfStocks()
+        val listOfCompanies = AlphaStockApiService.getListOfStocks()
 
         assertEquals(1, listOfCompanies.size)
     }

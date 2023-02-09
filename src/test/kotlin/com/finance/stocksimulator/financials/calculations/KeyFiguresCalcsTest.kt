@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.financials.keyFigures
+package com.finance.stocksimulator.financials.calculations
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

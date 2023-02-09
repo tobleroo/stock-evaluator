@@ -1,4 +1,4 @@
-package com.finance.stocksimulator.financials.keyFigures
+package com.finance.stocksimulator.financials.calculations
 
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
@@ -50,31 +50,21 @@ class KeyFiguresCalcs() {
             return thirdStep.roundToInt()
         }
 
-        //resultat efte finans poster
-        fun resultAfterFinancePosts(income: BigDecimal, costs: BigDecimal): BigDecimal{
-            return income.minus(costs)
+        // till du-pont modellen
+        fun netProfitMargin(netIncome: BigDecimal, revenue: BigDecimal):BigDecimal{
+            return netIncome.divide(revenue, 3 , RoundingMode.HALF_DOWN)
         }
 
-        //ränte kostnader
-        fun interestCosts(): BigDecimal{
-
+        fun assetTurnover(sales: BigDecimal, averageTotalAssets: BigDecimal): BigDecimal{
+            return sales.divide(averageTotalAssets, 3, RoundingMode.HALF_DOWN)
         }
 
-        // resultat före finans kostnader
+        fun equityMultiplier(averageTotalAssets: BigDecimal, averageShareHolderEquity: BigDecimal): BigDecimal{
+            return averageTotalAssets.divide(averageShareHolderEquity, 3, RoundingMode.HALF_DOWN)
+        }
 
-        //nettoomsättning
 
-        // vinstmarginal
 
-        // justerat eget kapital
-
-        // räntebärande skulder
-
-        // sysselsatt kapital
-
-        // kap.oms.hast.ggr/år
-
-        // avkastning sysselsatt kapital
 
 
 
