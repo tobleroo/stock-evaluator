@@ -76,6 +76,19 @@ class KeyFiguresCalcs() {
 
         // avkastning sysselsatt kapital
 
+
+
+        // -----   buffet stuff ------
+
+        //roe ratio
+
+        //ratio debt to equity
+        fun deptToEquity(totalDebt: BigDecimal, shareholderEquity: BigDecimal): BigDecimal{
+            return totalDebt.divide(shareholderEquity)
+        }
+
+
+
     }
 
 }
