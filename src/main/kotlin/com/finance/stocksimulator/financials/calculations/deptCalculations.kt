@@ -6,14 +6,14 @@ class deptCalculations {
 
     companion object{
 
-        fun netDept(shortTermDept: BigDecimal, longTermDept: BigDecimal, liquidity: BigDecimal): BigDecimal{
+        fun netDept(shortTermDept: Long, longTermDept: Long, liquidity: Long): Long{
             // (short term dept + long term dept) - cash and liquidity
             return (shortTermDept + longTermDept) - liquidity
         }
 
         // D/E-ratio
-        fun deptEquity(totalLiabilities: BigDecimal, shareholderEquity: BigDecimal): BigDecimal{
-            return totalLiabilities.divide(shareholderEquity)
+        fun deptEquity(totalLiabilities: Long, shareholderEquity: Long): Long{
+            return totalLiabilities.div(shareholderEquity)
         }
     }
 }
