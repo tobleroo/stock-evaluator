@@ -70,7 +70,8 @@ class KeyFiguresCalcs() {
        }
 
 //        dividend yield
-        fun dividendYieldPercentage(annualDividendPerShare: Long, stockPrice: Double): Double{
+
+        fun dividendYieldPercentage(annualDividendPerShare: Double, stockPrice: Double): Double{
             return annualDividendPerShare.div(stockPrice).times(100)
         }
 

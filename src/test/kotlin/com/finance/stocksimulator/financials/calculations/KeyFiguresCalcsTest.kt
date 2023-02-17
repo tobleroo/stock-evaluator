@@ -61,7 +61,7 @@ class KeyFiguresCalcsTest{
 
     @Test
     fun `dividend yield calculation with small numbers`(){
-        val result = KeyFiguresCalcs.dividendYieldPercentage(2, 50.0)
+        val result = KeyFiguresCalcs.dividendYieldPercentage(2.0, 50.0)
         assertEquals(4.0, result)
     }
 
