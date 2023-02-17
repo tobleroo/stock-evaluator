@@ -2,6 +2,7 @@ package com.finance.stocksimulator.alphaVantageAPI.service
 
 import com.finance.stocksimulator.alphaVantageAPI.FetchAlphaVantageDataAPI
 import com.finance.stocksimulator.alphaVantageAPI.stockModels.CompanyFullData
+import com.finance.stocksimulator.alphaVantageAPI.stockModels.ListingStocks
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -74,6 +75,10 @@ class AlphaStockApiService (){
 
         fun getListOfStocks(): List<CompanyFullData>{
             return collectedStocks
+        }
+
+        fun getListing(): List<ListingStocks>{
+            return fetchAlphaApi.fetchAlphaListing()
         }
 
     }

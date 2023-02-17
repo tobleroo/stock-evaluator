@@ -88,7 +88,6 @@ class FetchAlphaVantageDataAPI {
             true -> URL("https://www.alphavantage.co/query?function=${dataCat}&symbol=IBM&apikey=demo")
         }
 
-
         val data = url.openStream().bufferedReader().use {
             it.readText()
         }
