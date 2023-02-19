@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.*
 
 class TechCompanyEvaluationTest {
 
-    private val companyTest = TechCompanyEvaluation(25.0, 23003203, 23.5,
+    private val companyTest = TechCompanyEvaluation(25.0, 23003203.0, 23.5,
         12.4, 32432, 32.4, 34.4, 34242434,
         12.23)
 

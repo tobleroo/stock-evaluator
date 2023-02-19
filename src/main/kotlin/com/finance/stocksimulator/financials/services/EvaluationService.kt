@@ -14,35 +14,35 @@ class EvaluationService {
 
         fun evaluateCompany(companyData: CompanyFullData): BasicCompanyEvaluation {
 
-            val peRatio = KeyFiguresCalcs.priceEarningsRatio(companyData.globalQuote!!.price.toDouble(),
-                companyData.cashFlowData!!.annualReports[0].profitLoss.toDouble(),
-                companyData.overview!!.SharesOutstanding.toLong())
+            val peRatio = KeyFiguresCalcs.priceEarningsRatio(companyData.globalQuote!!.price,
+                companyData.cashFlowData!!.annualReports[0].profitLoss,
+                companyData.overview!!.SharesOutstanding)
 
-            val EPS = KeyFiguresCalcs.earningsPerShare(companyData.overview!!.SharesOutstanding.toLong(),
-                companyData.cashFlowData!!.annualReports[0].profitLoss.toLong())
+            val EPS = KeyFiguresCalcs.earningsPerShare(companyData.overview!!.SharesOutstanding,
+                companyData.cashFlowData!!.annualReports[0].profitLoss)
 
-            val revenueGrowth = KeyFiguresCalcs.revenueGrowthPercentage(companyData.cashFlowData!!.annualReports[0].profitLoss.toLong(),
-                companyData.cashFlowData!!.annualReports[1].profitLoss.toLong())
+            val revenueGrowth = KeyFiguresCalcs.revenueGrowthPercentage(companyData.cashFlowData!!.annualReports[0].profitLoss,
+                companyData.cashFlowData!!.annualReports[1].profitLoss)
 
-            val debtToEquity = KeyFiguresCalcs.deptToEquity(companyData.balanceData!!.annualReports[0].currentDebt.toLong(),
-                companyData.balanceData!!.annualReports[0].totalShareholderEquity.toLong())
+            val debtToEquity = KeyFiguresCalcs.deptToEquity(companyData.balanceData!!.annualReports[0].currentDebt,
+                companyData.balanceData!!.annualReports[0].totalShareholderEquity)
 
-            val roeDupont = KeyFiguresCalcs.returnOnEquityDupont(companyData.incomeData!!.annualReports[0].netIncome.toDouble(),
-                companyData.balanceData!!.annualReports[0].intangibleAssets.toLong(),
-                companyData.balanceData!!.annualReports[0].totalShareholderEquity.toDouble())
+            val roeDupont = KeyFiguresCalcs.returnOnEquityDupont(companyData.incomeData!!.annualReports[0].netIncome,
+                companyData.balanceData!!.annualReports[0].intangibleAssets,
+                companyData.balanceData!!.annualReports[0].totalShareholderEquity)
 
-            val grossMargin = KeyFiguresCalcs.grossMarginPercentage(companyData.incomeData!!.annualReports[0].totalRevenue.toLong(),
-                companyData.incomeData!!.annualReports[0].costofGoodsAndServicesSold.toLong())
+            val grossMargin = KeyFiguresCalcs.grossMarginPercentage(companyData.incomeData!!.annualReports[0].totalRevenue  ,
+                companyData.incomeData!!.annualReports[0].costofGoodsAndServicesSold)
 
-            val operationMargin = KeyFiguresCalcs.operationMarginPercentage(companyData.incomeData!!.annualReports[0].grossProfit.toLong(),
-                companyData.incomeData!!.annualReports[0].operatingExpenses.toLong(),
-                companyData.incomeData!!.annualReports[0].totalRevenue.toLong())
+            val operationMargin = KeyFiguresCalcs.operationMarginPercentage(companyData.incomeData!!.annualReports[0].grossProfit,
+                companyData.incomeData!!.annualReports[0].operatingExpenses,
+                companyData.incomeData!!.annualReports[0].totalRevenue)
 
-            val marketCap = KeyFiguresCalcs.marketCapitalization(companyData.globalQuote!!.price.toDouble(),
-                companyData.overview!!.SharesOutstanding.toLong())
+            val marketCap = KeyFiguresCalcs.marketCapitalization(companyData.globalQuote!!.price,
+                companyData.overview!!.SharesOutstanding)
 
-            val dividendYield = KeyFiguresCalcs.dividendYieldPercentage(companyData.overview!!.DividendPerShare.toDouble(),
-                companyData.globalQuote!!.previousclose.toDouble())
+            val dividendYield = KeyFiguresCalcs.dividendYieldPercentage(companyData.overview!!.DividendPerShare,
+                companyData.globalQuote!!.previousclose)
 
 
             return when (companyData.overview?.Sector){

@@ -9,59 +9,107 @@ class KeyFiguresCalcs() {
     companion object KeyCalcs {
 
 //        EPS
-        fun earningsPerShare(amountShares: Long, profit: Long): Long{
-            return profit.div(amountShares)
+        fun earningsPerShare(amountShares: String, profit: String): Double?{
+
+            return try {
+                val amountSharesNum = amountShares.toDouble()
+                val profitNum = profit.toLong()
+                profitNum.div(amountSharesNum)
+            }catch (e: Exception){
+                return null
+            }
+
         }
 
 //        pe-ratio
-        fun priceEarningsRatio(stockPrice: Double, profitLoss: Double, amountShares: Long): Double {
-            return stockPrice.div(profitLoss.div(amountShares))
+        fun priceEarningsRatio(stockPrice: String, profitLoss: String, amountShares: String): Double? {
+
+            return try{
+                stockPrice.toDouble().div(profitLoss.toLong().div(amountShares.toLong()))
+            }catch (e: Exception){
+                return null
+            }
         }
 
 //      revenue growth
-        fun revenueGrowthPercentage(latestYearEarnings: Long, yearBeforeEarnings: Long): Double{
-            val calc = (latestYearEarnings.toDouble().minus(yearBeforeEarnings).div(yearBeforeEarnings))
-            return calc.times(100)
+        fun revenueGrowthPercentage(latestYearEarnings: String, yearBeforeEarnings: String): Double?{
+
+            return try{
+                (latestYearEarnings.toDouble().minus(yearBeforeEarnings.toLong()).div(yearBeforeEarnings.toLong()))
+                    .times(100)
+            }catch (e: Exception){
+                return null
+            }
         }
 
 //      ratio debt to equity
-        fun deptToEquity(totalDebt: Long, shareholderEquity: Long): Double {
-            return totalDebt.toDouble().div(shareholderEquity)
+        fun deptToEquity(totalDebt: String, shareholderEquity: String): Double? {
+
+            return try{
+                totalDebt.toDouble().div(shareholderEquity.toLong())
+            }catch (e: Exception){
+                return null
+            }
         }
 
 //        return on equity basic(ROE)
-        fun returnOnEquityBasic(netIncome: Double, shareholderEquity: Double): Double{
-            return netIncome.div(shareholderEquity).times(100)
+        fun returnOnEquityBasic(netIncome: String, shareholderEquity: String): Double?{
+
+            return try {
+                netIncome.toDouble().div(shareholderEquity.toDouble()).times(100)
+            }catch (e: Exception){
+                return null
+            }
         }
 
 //        return on equity dupont model
-        fun returnOnEquityDupont(netIncome: Double, totalAssets: Long,
-                                 totalEquity: Double): Int{
+        fun returnOnEquityDupont(netIncome: String, totalAssets: String,
+                                 totalEquity: String): Int?{
 
-            val netProfitMarginPercentage = (netIncome.div(totalEquity))
+            return try {
+                val netProfitMarginPercentage = (netIncome.toDouble().div(totalEquity.toDouble()))
 
-            val assetTurnoverPercentage = netIncome.div(totalAssets)
+                val assetTurnoverPercentage = netIncome.toDouble().div(totalAssets.toLong())
 
-            val financialLeverage = totalAssets.div(totalEquity)
+                val financialLeverage = totalAssets.toLong().div(totalEquity.toDouble())
 
-            return (netProfitMarginPercentage * assetTurnoverPercentage * financialLeverage).times(100).toInt()
+                (netProfitMarginPercentage * assetTurnoverPercentage * financialLeverage).times(100).toInt()
+            }catch (e: Exception){
+                return null
+            }
         }
 
         //        gross margin
-        fun grossMarginPercentage(revenue: Long, costGoodsSold: Long): Double {
-            val step1 = revenue.toDouble().minus(costGoodsSold)
-            val step2 = step1.div(revenue)
-            return step2.times(100)
+        fun grossMarginPercentage(revenue: String, costGoodsSold: String): Double? {
+
+            return try {
+                val step1 = revenue.toDouble().minus(costGoodsSold.toLong())
+                val step2 = step1.div(revenue.toDouble())
+                step2.times(100)
+            }catch (e: Exception){
+                return null
+            }
+
         }
 
 //        operation margin
-        fun operationMarginPercentage(grossProfit: Long, operatingExpenses: Long, revenue: Long): Double{
-            return (grossProfit.toDouble().minus(operatingExpenses)).div(revenue).times(100)
+        fun operationMarginPercentage(grossProfit: String, operatingExpenses: String, revenue: String): Double?{
+            return try {
+                (grossProfit.toDouble().minus(operatingExpenses.toLong())).div(revenue.toLong()).times(100)
+            }catch (e: Exception){
+                return null
+            }
         }
 
 //        market capitalization
-        fun marketCapitalization(stockPrice: Double, sharesAmount: Long): Long{
-            return stockPrice.times(sharesAmount).toLong()
+        fun marketCapitalization(stockPrice: String, sharesAmount: String): Long?{
+
+            return try {
+                stockPrice.toDouble().times(sharesAmount.toLong()).toLong()
+            }catch (e: Exception){
+                return null
+            }
+
         }
 
 //        beta (extrem uträkning)
@@ -71,8 +119,12 @@ class KeyFiguresCalcs() {
 
 //        dividend yield
 
-        fun dividendYieldPercentage(annualDividendPerShare: Double, stockPrice: Double): Double{
-            return annualDividendPerShare.div(stockPrice).times(100)
+        fun dividendYieldPercentage(annualDividendPerShare: String, stockPrice: String): Double?{
+            return try {
+                annualDividendPerShare.toDouble().div(stockPrice.toDouble()).times(100)
+            }catch (e: Exception){
+                return null
+            }
         }
 
     }

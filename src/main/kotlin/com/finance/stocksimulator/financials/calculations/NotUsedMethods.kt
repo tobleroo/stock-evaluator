@@ -63,7 +63,7 @@ class NotUsedMethods {
     // discounted cash flow
     fun discountedCashFlow(earnings: Double, amountShares: Long,
                            latestYearEarnings: Long, lastYearEarnings: Long,
-                           stockPrice: Double ): Double {
+                           stockPrice: Double ): Double? {
         /*
         EPS * (1 + R) * P/E-ratio
         r = expected earnings growth rate
@@ -71,8 +71,9 @@ class NotUsedMethods {
 
         val ePS = earnings.div(amountShares)
         val expextedGrowthRate = latestYearEarnings.div(lastYearEarnings).toDouble()
-        val peRatio = KeyFiguresCalcs.priceEarningsRatio(stockPrice, earnings, amountShares)
+//        val peRatio = KeyFiguresCalcs.priceEarningsRatio(stockPrice, earnings, amountShares)
 
-        return ePS.times(1 + expextedGrowthRate).times(peRatio)
+//        return ePS.times(1 + expextedGrowthRate).times(peRatio)
+        return null
     }
 }
