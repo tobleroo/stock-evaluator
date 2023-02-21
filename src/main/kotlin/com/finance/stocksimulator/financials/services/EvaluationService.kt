@@ -12,31 +12,31 @@ class EvaluationService {
 
     companion object{
 
-        fun evaluateCompany(companyData: CompanyFullData): BasicCompanyEvaluation {
+        fun evaluateCompany(companyData: CompanyFullData, year: Int): BasicCompanyEvaluation {
 
             val peRatio = KeyFiguresCalcs.priceEarningsRatio(companyData.globalQuote!!.price,
-                companyData.cashFlowData!!.annualReports[0].profitLoss,
+                companyData.cashFlowData!!.annualReports[year].profitLoss,
                 companyData.overview!!.SharesOutstanding)
 
             val EPS = KeyFiguresCalcs.earningsPerShare(companyData.overview!!.SharesOutstanding,
-                companyData.cashFlowData!!.annualReports[0].profitLoss)
+                companyData.cashFlowData!!.annualReports[year].profitLoss)
 
-            val revenueGrowth = KeyFiguresCalcs.revenueGrowthPercentage(companyData.cashFlowData!!.annualReports[0].profitLoss,
-                companyData.cashFlowData!!.annualReports[1].profitLoss)
+            val revenueGrowth = KeyFiguresCalcs.revenueGrowthPercentage(companyData.cashFlowData!!.annualReports[year].profitLoss,
+                companyData.cashFlowData!!.annualReports[year+1].profitLoss)
 
-            val debtToEquity = KeyFiguresCalcs.deptToEquity(companyData.balanceData!!.annualReports[0].currentDebt,
-                companyData.balanceData!!.annualReports[0].totalShareholderEquity)
+            val debtToEquity = KeyFiguresCalcs.deptToEquity(companyData.balanceData!!.annualReports[year].currentDebt,
+                companyData.balanceData!!.annualReports[year].totalShareholderEquity)
 
-            val roeDupont = KeyFiguresCalcs.returnOnEquityDupont(companyData.incomeData!!.annualReports[0].netIncome,
-                companyData.balanceData!!.annualReports[0].intangibleAssets,
-                companyData.balanceData!!.annualReports[0].totalShareholderEquity)
+            val roeDupont = KeyFiguresCalcs.returnOnEquityDupont(companyData.incomeData!!.annualReports[year].netIncome,
+                companyData.balanceData!!.annualReports[year].intangibleAssets,
+                companyData.balanceData!!.annualReports[year].totalShareholderEquity)
 
-            val grossMargin = KeyFiguresCalcs.grossMarginPercentage(companyData.incomeData!!.annualReports[0].totalRevenue  ,
-                companyData.incomeData!!.annualReports[0].costofGoodsAndServicesSold)
+            val grossMargin = KeyFiguresCalcs.grossMarginPercentage(companyData.incomeData!!.annualReports[year].totalRevenue  ,
+                companyData.incomeData!!.annualReports[year].costofGoodsAndServicesSold)
 
-            val operationMargin = KeyFiguresCalcs.operationMarginPercentage(companyData.incomeData!!.annualReports[0].grossProfit,
-                companyData.incomeData!!.annualReports[0].operatingExpenses,
-                companyData.incomeData!!.annualReports[0].totalRevenue)
+            val operationMargin = KeyFiguresCalcs.operationMarginPercentage(companyData.incomeData!!.annualReports[year].grossProfit,
+                companyData.incomeData!!.annualReports[year].operatingExpenses,
+                companyData.incomeData!!.annualReports[year].totalRevenue)
 
             val marketCap = KeyFiguresCalcs.marketCapitalization(companyData.globalQuote!!.price,
                 companyData.overview!!.SharesOutstanding)
@@ -48,7 +48,7 @@ class EvaluationService {
             return when (companyData.overview?.Sector){
                 ("TECHNOLOGY") -> { TechCompanyEvaluation(peRatio, EPS, revenueGrowth, debtToEquity,
                         roeDupont, grossMargin, operationMargin, marketCap, dividendYield) }
-                else -> throw IllegalArgumentException("something went wrong")
+                else -> throw IllegalArgumentException("havent implemented class for ${companyData.overview?.Sector}")
             }
 
         }

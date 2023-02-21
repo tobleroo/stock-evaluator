@@ -26,7 +26,7 @@ class DemoController() {
     fun EvaluatedStock(): String{
         val stockData = AlphaStockApiService.fetchAllAlphaData("AAPL", false)
 
-        return EvaluationService.evaluateCompany(stockData).toString()
+        return EvaluationService.evaluateCompany(stockData, 3).toString()
     }
 
     @GetMapping("/exchange")
