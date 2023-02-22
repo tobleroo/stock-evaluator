@@ -112,13 +112,73 @@ class KeyFiguresCalcs() {
 
         }
 
-//        beta (extrem uträkning)
-       fun betaValue(){
-           TODO("advanced calculation not yet implemented")
+       fun betaValue(betaValue: String): Double?{
+           return try{
+               betaValue.toDouble()
+           }catch (e: Exception){
+               return null
+           }
        }
 
-//        dividend yield
+//        volatility calculation
+        fun volatility(){
+            TODO("need to access stock price to calculate")
+        }
 
+//      profit margin
+        fun profitMargin(netIncome: String, revenue: String): Double?{
+            return try{
+                (netIncome.toDouble()
+                    .div(revenue.toDouble())
+                ).times(100)
+            }catch (e: Exception){
+                return null
+            }
+        }
+
+//      operting margin
+        fun operatingMargin(operatingIncome: String, revenue: String): Double?{
+
+            return try{
+                (operatingIncome.toDouble().div(revenue.toDouble())).times(100)
+            }catch (e: Exception){
+                return null
+            }
+        }
+
+//      net margin
+        fun netMargin(netIncome: String, revenue: String): Double?{
+            return try{
+                (netIncome.toDouble().div(revenue.toDouble())).times(100)
+            }catch (e: Exception){
+                return null
+            }
+        }
+
+//      ebitda
+        fun ebitda(revenue: String, costGoodsSold: String, operatingExpenses: String,
+                   depreciation: String, amortization: String): Double?{
+
+            return try {
+                revenue.toDouble().minus(costGoodsSold.toDouble())
+                    .minus(operatingExpenses.toDouble())
+                    .plus(depreciation.toDouble())
+                    .plus(amortization.toDouble())
+            }catch (e: Exception){
+                return null
+            }
+        }
+
+//        pre tax margin
+        fun preTaxMargin(incomeBeforeTax: String, revenue: String): Double?{
+            return try {
+                (incomeBeforeTax.toDouble().div(revenue.toDouble())).times(100)
+            }catch (e: Exception){
+                return null
+            }
+        }
+
+//        dividend yield
         fun dividendYieldPercentage(annualDividendPerShare: String, stockPrice: String): Double?{
             return try {
                 annualDividendPerShare.toDouble().div(stockPrice.toDouble()).times(100)

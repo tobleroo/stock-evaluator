@@ -2,8 +2,8 @@ package com.finance.stocksimulator.financials.services
 
 import com.finance.stocksimulator.alphaVantageAPI.stockModels.CompanyFullData
 import com.finance.stocksimulator.financials.calculations.KeyFiguresCalcs
-import com.finance.stocksimulator.financials.financeModels.basicModel.BasicCompanyEvaluation
-import com.finance.stocksimulator.financials.financeModels.basicModel.TechCompanyEvaluation
+import com.finance.stocksimulator.financials.financeModels.basicEvalModel.BasicCompanyEvaluation
+import com.finance.stocksimulator.financials.financeModels.basicEvalModel.TechCompanyEvaluation
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
 
@@ -12,7 +12,7 @@ class EvaluationService {
 
     companion object{
 
-        fun evaluateCompany(companyData: CompanyFullData, year: Int): BasicCompanyEvaluation {
+        fun evaluateCompany(companyData: CompanyFullData, year: Int = 0): BasicCompanyEvaluation {
 
             val peRatio = KeyFiguresCalcs.priceEarningsRatio(companyData.globalQuote!!.price,
                 companyData.cashFlowData!!.annualReports[year].profitLoss,
@@ -44,10 +44,31 @@ class EvaluationService {
             val dividendYield = KeyFiguresCalcs.dividendYieldPercentage(companyData.overview!!.DividendPerShare,
                 companyData.globalQuote!!.previousclose)
 
+            val betaValue = KeyFiguresCalcs.betaValue(companyData.overview!!.Beta)
+
+            val profitMargin = KeyFiguresCalcs.profitMargin(companyData.incomeData!!.annualReports[year].netIncome,
+                companyData.incomeData!!.annualReports[year].totalRevenue)
+
+            val operatingMargin = KeyFiguresCalcs.operatingMargin(companyData.incomeData!!.annualReports[year].operatingIncome,
+                companyData.incomeData!!.annualReports[year].totalRevenue)
+
+            val netMargin = KeyFiguresCalcs.netMargin(companyData.incomeData!!.annualReports[year].netIncome,
+                companyData.incomeData!!.annualReports[year].totalRevenue)
+
+            val ebitda = KeyFiguresCalcs.ebitda(companyData.incomeData!!.annualReports[year].totalRevenue,
+                companyData.incomeData!!.annualReports[year].costofGoodsAndServicesSold,
+                companyData.incomeData!!.annualReports[year].operatingExpenses,
+                companyData.incomeData!!.annualReports[year].depreciation,
+                companyData.balanceData!!.annualReports[year].accumulatedDepreciationAmortizationPPE)
+
+            val preTax = KeyFiguresCalcs.preTaxMargin(companyData.incomeData!!.annualReports[year].incomeBeforeTax,
+                companyData.incomeData!!.annualReports[year].totalRevenue)
+
 
             return when (companyData.overview?.Sector){
                 ("TECHNOLOGY") -> { TechCompanyEvaluation(peRatio, EPS, revenueGrowth, debtToEquity,
-                        roeDupont, grossMargin, operationMargin, marketCap, dividendYield) }
+                        roeDupont, grossMargin, operationMargin, marketCap, dividendYield, betaValue,
+                    profitMargin, operatingMargin, netMargin, ebitda, preTax) }
                 else -> throw IllegalArgumentException("havent implemented class for ${companyData.overview?.Sector}")
             }
 

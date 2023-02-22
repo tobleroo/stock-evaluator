@@ -24,7 +24,7 @@ class DemoController() {
 
     @GetMapping("/evaluated")
     fun EvaluatedStock(): String{
-        val stockData = AlphaStockApiService.fetchAllAlphaData("AAPL", false)
+        val stockData = AlphaStockApiService.fetchAllAlphaData("IBM", false)
 
         return EvaluationService.evaluateCompany(stockData, 3).toString()
     }

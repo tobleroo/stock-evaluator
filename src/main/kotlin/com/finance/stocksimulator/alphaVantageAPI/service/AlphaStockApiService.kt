@@ -12,7 +12,6 @@ class AlphaStockApiService (){
 
     companion object{
 
-        @Autowired
         private val fetchAlphaApi: FetchAlphaVantageDataAPI = FetchAlphaVantageDataAPI()
         private var collectedStocks = arrayListOf<CompanyFullData>()
 
