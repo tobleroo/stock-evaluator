@@ -24,9 +24,9 @@ class BacktestController {
         val companyLatest = EvaluationService.evaluateCompany(companyData, 0)
         val earlierData = EvaluationService.evaluateCompany(companyData, 3)
 
-        val theList = listOf(companyLatest, earlierData)
+        val backTestDao = BacktestService.backTestTechStock(companyLatest, earlierData)
 
-        return mapper.writeValueAsString(theList)
+        return mapper.writeValueAsString(backTestDao)
 
     }
 }
