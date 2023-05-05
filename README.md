@@ -12,3 +12,7 @@ This project is a Kotlin application built with the Spring Framework. It utilize
 
 AlphaVantage API
 
+## Pictures
+
+
+![alt text](https://github.com/tobleroo/stock-evaluator/blob/development/stock-rest-pics/stock-getEvaluated.png?raw=true)
