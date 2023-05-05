@@ -1,33 +1,14 @@
 # Project Name
 
-Short description of the project.
+This project is a Kotlin application built with the Spring Framework. It utilizes the AlphaVantage API to collect stock data and evaluate stocks using various financial calculations. The application can gather data from AlphaVantage and process it using multiple financial metrics and algorithms. With this application, users can retrieve detailed stock data and perform financial analysis of stocks with the help of a variety of calculations. This could be useful for investors, traders, or anyone interested in monitoring or analyzing the stock market.
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
-
-## Installation
-
-Instructions on how to install the project, including any dependencies.
-
-## Usage
-
-Instructions on how to use the project, including any command-line options, API documentation, or other relevant information.
-
-## Contributing
-
-Guidelines for contributing to the project, including how to submit bug reports, feature requests, or pull requests.
-
-## License
-
-Information about the project's license and any relevant copyright or ownership information.
+- Select a stock ticker name and retrieve evaluated data about the specific stock.
+- Retrieve data on a specific stock market.
+- Retrieve different financial evaluation models of a stock financial data.
 
 ## Credits
 
-Acknowledgements or credits for any contributors, libraries, or other resources used in the project.
+AlphaVantage API
 
-## Contact
-
-Contact information for the project maintainer or contributors.
