@@ -16,3 +16,6 @@ AlphaVantage API
 
 
 ![alt text](https://github.com/tobleroo/stock-evaluator/blob/development/stock-rest-pics/stock-getEvaluated.png?raw=true)
+
+
+![Example image](https://github.com/tobleroo/stock-evaluator/blob/development/stock-rest-pics/stock-getExchange.png?raw=true)
